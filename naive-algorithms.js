@@ -3,9 +3,10 @@ const network = [
   [ 0, 0, 0, 1, 1 ],
   [ 0, 0, 1, 1, 0 ],
   [ 0, 1, 0, 1, 0 ],
-  [ 0, 0, 0, 0, 1 ],
-  [ 0, 1, 1, 0, 0 ]
+  [ 1, 1, 1, 0, 1 ],
+  [ 1, 0, 0, 1, 0 ]
 ];
+let networkPrime;
 //AD,AE,BC,BD,CD,DE,EB,EC - number of edges
 //Initially the minimum vertices monitored is 5/network hub span
 let min = network.length;
@@ -54,6 +55,7 @@ const vertexCover = function ( combinations, combination ) {
 //We need an independant set of one vertex at least
 let maxI = 1;
 const independantSet = function ( combinations, combination ) {
+  const Network = networkPrime || network;
   let count = 0;
   let sum = 0;
   //loop through the network
@@ -69,7 +71,7 @@ const independantSet = function ( combinations, combination ) {
       //keep investigating
       //If there is even a single edge, skip investigating
       if ( i !== j && combination[ i ] && combination[ j ] && !count ) {
-        if ( network[ i ][ j ] || network[ j ][ i ] ) {
+        if ( Network[ i ][ j ] || Network[ j ][ i ] ) {
           count++;
         }
       }
@@ -81,6 +83,7 @@ const independantSet = function ( combinations, combination ) {
   }
   return combinations;
 };
+
 //Define env
 const numberOfHubs = 5;
 const permutations = Math.pow( 2, numberOfHubs );
@@ -107,9 +110,44 @@ const possibilities = function ( ascend = true ) {
 };
 //reduce the combinations generated for available permutations, to
 // a set of viable and minimum span combinations
-const combinationsOfIS = possibilities( false );
-const combinationsOfVC = possibilities();
-console.log( 'independant Set' );
-console.log( combinationsOfIS.reduce( independantSet, new Set() ) );
+const descendingPermutations = possibilities( false );
+const ascendingPermutations = possibilities();
+console.log( 'Independant Set' );
+console.log( descendingPermutations.reduce( independantSet, new Set() ) );
 console.log( 'Vertex Cover' );
-console.log( combinationsOfVC.reduce( vertexCover, new Set() ) );
+console.log( ascendingPermutations.reduce( vertexCover, new Set() ) );
+
+//clique
+
+networkPrime = network.map( ( row, index ) => {
+  return row.map( ( element, eIndex ) => {
+    if ( eIndex === index ) {
+      return 0;
+    }
+    return ( element ) ? 0 : 1;
+  } );
+} );
+/*
+* Input
+[
+  [ 0, 0, 0, 1, 1 ],
+  [ 0, 0, 1, 1, 0 ],
+  [ 0, 1, 0, 1, 0 ],
+  [ 1, 1, 1, 0, 1 ],
+  [ 1, 0, 0, 1, 0 ]
+];
+* Inverse
+[
+  [ 0, 1, 1, 0, 0 ],
+  [ 1, 0, 0, 0, 1 ],
+  [ 1, 0, 0, 0, 1 ],
+  [ 0, 0, 0, 0, 0 ],
+  [ 0, 1, 1, 0, 0 ]
+];
+
+*/
+const clique = function () {
+  return descendingPermutations.reduce( independantSet, new Set() );
+};
+console.log( 'Clique' );
+console.log( clique() );
