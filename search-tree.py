@@ -21,7 +21,7 @@ def vertex_cover_tree(input_graph):
 # This function recursively builds the search tree
 
 def recursive_vertex_cover(input_graph, assignment):
-
+    print assignment
     # ###########
     # YOUR CODE GOES HERE
     #
@@ -47,15 +47,24 @@ def recursive_vertex_cover(input_graph, assignment):
                 if assignment[i] == 1:
                     size += 1
             return size
-
+    #If no vertices are unassigned with a 0 or 1, and If there are
+    #No adjacent vertices with neither assigned 1, then, recurse
     # END OF YOUR CODE. The following code takes care of the recursive
     # branching. Do not modify anything below here!
     # #############
-    print assignment
     assignment[v] = 0
     size_v_0 = recursive_vertex_cover(input_graph, assignment)
+    # size_v_0 = recursive_vertex_cover(input_graph,[None,None,None,None,0])
+    # = min((input_graph,[None,None,None,0,0]),(input_graph,[None,None,None,1,0]))
+    # = min(inf,min((input_graph,[None,None,0,1,0]),(input_graph,[None,None,1,1,0])))
+    # = min(inf,min((input_graph,[None,0,0,1,0]),(input_graph,[None,1,0,1,0])))
+    # = min(inf,min(inf,min((input_graph,[0,1,0,1,0]),(input_graph,[1,1,0,1,0]))))
+    # = min(inf,min(inf,min(inf,3)))
+    # ---> min(inf,min(inf,3)) ---> min(inf,3)
+    # = 3
     assignment[v] = 1
     size_v_1 = recursive_vertex_cover(input_graph, assignment)
+    # size_v_1 = recursive_vertex_cover(input_graph,[None,None,None,None,1])
     assignment[v] = None
     return min(size_v_0, size_v_1)
 
