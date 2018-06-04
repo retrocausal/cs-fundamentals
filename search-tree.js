@@ -11,7 +11,7 @@ class SearchTree {
     this.networkA = [ [ 0, 1 ], [ 1, 0 ] ];
     this.assignmentA = [ null, null ];
     this.assignment = [ null, null, null, null, null ];
-    this.VCs = {};
+    this.VCMap = new Map();
   }
   vertexCover( assignment ) {
     let vertex = null;
@@ -27,12 +27,12 @@ class SearchTree {
       }
     }
     if ( vertex === null ) {
-      const Key = assignment;
+      const Key = assignment.slice( 0 );
       const VC = assignment.reduce( ( sum, state ) => {
         sum += ( state !== null && state > 0 ) ? 1 : 0;
         return sum;
       }, 0 );
-      this.VCs[ Key ] = VC;
+      this.VCMap.set( Key, VC );
       return VC;
     } else {
 
@@ -51,11 +51,17 @@ const minVC = new Promise( ( resolve ) => {
   resolve( Tree.vertexCover( Tree.assignment ) );
 } );
 const minimums = minVC.then( VC => {
-  const Keys = Object.keys( Tree.VCs );
+  /*const Keys = Object.keys( Tree.VCs );
   const viableVCs = Keys.reduce( ( minVCs, assignment ) => {
     if ( Tree.VCs[ assignment ] === VC )
       minVCs.add( assignment );
     return minVCs;
-  }, new Set() );
+  }, new Set() );*/
+  const viableVCs = new Set();
+  for ( const [ VCoverAssignment, VCover ] of Tree.VCMap ) {
+    if ( VCover === VC )
+      viableVCs.add( VCoverAssignment );
+  }
+  console.log( viableVCs );
   return viableVCs;
 } )
