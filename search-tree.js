@@ -11,9 +11,9 @@ class SearchTree {
     this.networkA = [ [ 0, 1 ], [ 1, 0 ] ];
     this.assignmentA = [ null, null ];
     this.assignment = [ null, null, null, null, null ];
+    this.VCs = {};
   }
   vertexCover( assignment ) {
-    console.log( assignment );
     let vertex = null;
     for ( let i = 0; i < this.network.length; i++ ) {
       if ( assignment[ i ] === null ) {
@@ -27,10 +27,12 @@ class SearchTree {
       }
     }
     if ( vertex === null ) {
+      const Key = assignment;
       const VC = assignment.reduce( ( sum, state ) => {
         sum += ( state !== null && state > 0 ) ? 1 : 0;
         return sum;
       }, 0 );
+      this.VCs[ Key ] = VC;
       return VC;
     } else {
 
@@ -39,9 +41,21 @@ class SearchTree {
       assignment[ vertex ] = 0;
       const sizeWithoutVertex = this.vertexCover( assignment );
       assignment[ vertex ] = null;
-      return Math.min( sizeWithVertex, sizeWithoutVertex );
+      const MinimumCover = Math.min( sizeWithVertex, sizeWithoutVertex );
+      return MinimumCover;
     }
   }
 }
 const Tree = new SearchTree();
-const minVC = Tree.vertexCover( Tree.assignment );
+const minVC = new Promise( ( resolve ) => {
+  resolve( Tree.vertexCover( Tree.assignment ) );
+} );
+const minimums = minVC.then( VC => {
+  const Keys = Object.keys( Tree.VCs );
+  const viableVCs = Keys.reduce( ( minVCs, assignment ) => {
+    if ( Tree.VCs[ assignment ] === VC )
+      minVCs.add( assignment );
+    return minVCs;
+  }, new Set() );
+  return viableVCs;
+} )
