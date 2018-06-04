@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
   <head>
     <meta charset="utf-8">
     <title>CS Fun</title>
-    <script src="naive-algorithms.js" charset="utf-8"></script>
+    <!--<script src="naive-algorithms.js" charset="utf-8"></script>
     <script type="text/javascript">
       const recursiveFibonacci = function(n){
         if(n==1)
@@ -23,9 +24,64 @@
         return recursiveFibonacci(n-2)+recursiveFibonacci(n-1);
       };
       console.log(recursiveFibonacci(10));
-    </script>
+    </script>-->
+    <script src="search-tree.js" charset="utf-8"></script>
   </head>
+
   <body>
 
   </body>
+
 </html>
+<!--
+17:44:26.495 search-tree.js:16 (5) [null, null, null, null, null]
+17:44:26.507 search-tree.js:16 (5) [null, null, null, null, 1]
+17:44:26.507 search-tree.js:16 (5) [null, null, null, 1, 1]
+17:44:26.508 search-tree.js:16 (5) [null, null, 1, 1, 1]
+17:44:26.508 search-tree.js:16 (5) [null, 1, 1, 1, 1]
+17:44:26.509 search-tree.js:16 (5) [1, 1, 1, 1, 1]
+17:44:26.509 search-tree.js:16 (5) [0, 1, 1, 1, 1]
+17:44:26.510 search-tree.js:16 (5) [null, 0, 1, 1, 1]
+17:44:26.510 search-tree.js:16 (5) [1, 0, 1, 1, 1]
+17:44:26.511 search-tree.js:16 (5) [0, 0, 1, 1, 1]
+17:44:26.511 search-tree.js:16 (5) [null, null, 0, 1, 1]
+17:44:26.512 search-tree.js:16 (5) [null, 1, 0, 1, 1]
+17:44:26.512 search-tree.js:16 (5) [1, 1, 0, 1, 1]
+17:44:26.513 search-tree.js:16 (5) [0, 1, 0, 1, 1]
+17:44:26.520 search-tree.js:16 (5) [null, 0, 0, 1, 1]
+17:44:26.521 search-tree.js:16 (5) [null, null, null, 0, 1]
+17:44:26.522 search-tree.js:16 (5) [null, null, 1, 0, 1]
+17:44:26.523 search-tree.js:16 (5) [null, 1, 1, 0, 1]
+17:44:26.523 search-tree.js:16 (5) [1, 1, 1, 0, 1]
+17:44:26.528 search-tree.js:16 (5) [0, 1, 1, 0, 1]
+17:44:26.529 search-tree.js:16 (5) [null, 0, 1, 0, 1]
+17:44:26.530 search-tree.js:16 (5) [null, null, 0, 0, 1]
+17:44:26.530 search-tree.js:16 (5) [null, null, null, null, 0]
+17:44:26.533 search-tree.js:16 (5) [null, null, null, 1, 0]
+17:44:26.535 search-tree.js:16 (5) [null, null, 1, 1, 0]
+17:44:26.535 search-tree.js:16 (5) [null, 1, 1, 1, 0]
+17:44:26.536 search-tree.js:16 (5) [1, 1, 1, 1, 0]
+17:44:26.536 search-tree.js:16 (5) [0, 1, 1, 1, 0]
+17:44:26.549 search-tree.js:16 (5) [null, 0, 1, 1, 0]
+17:44:26.550 search-tree.js:16 (5) [1, 0, 1, 1, 0]
+17:44:26.551 search-tree.js:16 (5) [0, 0, 1, 1, 0]
+17:44:26.552 search-tree.js:16 (5) [null, null, 0, 1, 0]
+17:44:26.553 search-tree.js:16 (5) [null, 1, 0, 1, 0]
+17:44:26.554 search-tree.js:16 (5) [1, 1, 0, 1, 0]
+17:44:26.554 search-tree.js:16 (5) [0, 1, 0, 1, 0]
+17:44:26.555 search-tree.js:16 (5) [null, 0, 0, 1, 0]
+17:44:26.555 search-tree.js:16 (5) [null, null, null, 0, 0]
+-->
+<!--
+10:41:03.652 search-tree.js:16 (5) [null, null, null, null, null]
+10:41:03.668 search-tree.js:16 (5) [null, null, null, null, 1]
+10:41:03.670 search-tree.js:16 (5) [null, null, null, 1, 1]
+10:41:03.671 search-tree.js:16 (5) [null, null, 1, 1, 1]
+10:41:03.672 search-tree.js:16 (5) [null, 1, 1, 1, 1]
+10:41:03.673 search-tree.js:16 (5) [1, 1, 1, 1, 1]
+10:41:03.673 search-tree.js:16 (5) [0, 1, 1, 1, 1]
+10:41:03.674 search-tree.js:16 (5) [0, 0, 1, 1, 1]
+10:41:03.675 search-tree.js:16 (5) [0, 0, 0, 1, 1]
+10:41:03.675 search-tree.js:16 (5) [0, 0, 0, 0, 1]
+10:41:03.676 search-tree.js:16 (5) [0, 0, 0, 0, 0]
+-->
