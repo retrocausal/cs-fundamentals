@@ -47,7 +47,6 @@ class SearchTree {
   }
 
   betterVertexCover( assignment ) {
-    console.log( assignment );
     let v1 = null;
     let v2 = null;
     for ( let i = 0; i < this.network.length; i++ ) {
