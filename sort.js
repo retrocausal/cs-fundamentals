@@ -65,6 +65,34 @@ class CustomSort {
     }
     return A;
   }
+  quick( input, low, high ) {
+    //console.log( input.slice( 0 ) );
+    const floor = ( low >= 0 ) ? low : 0;
+    const ceil = ( high >= 0 ) ? high : input.length;
+    if ( floor < ceil ) {
+      const pivot = this.getPivot( input, floor, ceil );
+      const pivotEl = input[ pivot ];
+      this.quick( input, floor, pivot );
+      this.quick( input, pivot + 1, ceil );
+      return input;
+    }
+  }
+  getPivot( A, low, high ) {
+    const floor = ( low >= 0 ) ? low : 0;
+    const ceil = ( high >= 0 ) ? high : input.length;
+    let pivot = floor;
+    const pivotEl = A[ pivot ];
+    let k = pivot + 1;
+    while ( k < ceil ) {
+      if ( A[ k ] < pivotEl ) {
+        pivot++;
+        this.swap( A, pivot, k );
+      }
+      k++;
+    }
+    this.swap( A, pivot, floor );
+    return pivot;
+  }
 }
 let time;
 const Sort = new CustomSort();
@@ -76,4 +104,7 @@ console.log( performance.now() - time );
 
 time = performance.now();
 console.log( Sort.naiveMerge( myList.slice( 0 ) ) );
+console.log( performance.now() - time );
+time = performance.now();
+console.log( Sort.quick( myList.slice( 0 ) ) );
 console.log( performance.now() - time );
