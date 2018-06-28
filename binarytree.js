@@ -65,20 +65,27 @@ class BinaryTree {
       break;
     case 'in-order':
     default:
-      return this.traverseInOrder( root );
+      return this.traverseInOrder( root, null, new Set() );
     }
   }
-  traverseInOrder( start ) {
+  traverseInOrder( start, parent, parents ) {
+    if ( parent )
+      parents.add( parent );
+    if ( parents.has( start.left ) || parents.has( start.right ) )
+      throw ( `cycle from ${start.data} to ${parent.data}` );
     //this.collection.push( start.data );
     if ( start.left ) {
-      this.traverseInOrder( start.left );
+      this.traverseInOrder( start.left, start, parents );
     }
     this.collection.push( start.data );
     if ( start.right ) {
-      this.traverseInOrder( start.right );
+      this.traverseInOrder( start.right, start, parents );
     }
     //this.collection.push( start.data );
-    return this.collection;
+    return {
+      collection: this.collection,
+      parents: parents
+    };
   }
 
 }
@@ -90,14 +97,16 @@ const tree = new BinaryTree( node );
 tree.insert( 2 );
 tree.insert( 1 );
 tree.insert( 3 );
-tree.insert( 5 );
-tree.insert( 6 );
+const parent = tree.insert( 5 );
+const recursive = tree.insert( 6 );
 tree.insert( -1 );
 tree.insert( -10 );
 tree.insert( 99 );
 tree.insert( 81 );
 tree.insert( 81 );
 tree.insert( 81 );
+//unlock circular structure
+/*recursive.left = parent;*/
 //Check search
 // Should be True
 console.log( tree.search( 1 ) );
